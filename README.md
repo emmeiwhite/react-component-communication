@@ -6,7 +6,7 @@
 
 ## Pictures speak more than words can.
 
-![alt text](./Get_idea.png)
+![alt text](Get_idea.png)
 
 ## Once you clone the application.
 
