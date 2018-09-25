@@ -6,7 +6,8 @@
 
 ## Pictures speak more than words can.
 
-![alt text](src/Get_idea.png)
+![get_idea](https://user-images.githubusercontent.com/24872963/46012199-14df7500-c0e6-11e8-98c4-3d5a8c90c1d7.png)
+
 
 ## Once you clone the application.
 
