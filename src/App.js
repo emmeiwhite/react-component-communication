@@ -1,12 +1,23 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
+import Child from './components/parent-to-child/child';
 import './App.css';
 
 class App extends Component {
+  state = {
+    mainGoal:"Teaching moral ettiquites"
+  }
+
+  getABicycle = (bicycleBrand)=>{
+    this.setState({
+      mainGoal:bicycleBrand
+    })
+  }
+  
   render() {
     return (
       <div className="App">
-       <h1>React Communication</h1>
+          <Child headline={this.state.mainGoal} demandOfChild={this.getABicycle.bind(this,"Hero Bicycle")}/>
       </div>
     );
   }
