@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import UniqueId from 'react-html-id';
 
 import Parent from './components/parent-to-child/parent';
 import User from './components/lists/user';
@@ -6,16 +7,26 @@ import User from './components/lists/user';
 import './App.css';
 
 class App extends Component {
-  state = {
-    mainGoal:"Teaching moral ettiquites",
-    users:[
-      {name:"Imran",age:27,profession:"Software Engineer"},
-      {name:"Pankaj",age:26,profession:"Software Engineer"},
-      {name:"Vineet",age:29,profession:"Team Lead "},
-      {name:"Haris",age:27,profession:"Java Spring Developer"},
-      {name:"Momin",age:25,profession:"Dot Net developer"},
-    ]
+  constructor(props){
+    super(props);
+    
+    UniqueId.enableUniqueIds(this); // Binding UniqueIds with "this"
+
+    this.state = {
+      mainGoal:"Teaching moral ettiquites",
+      
+      users:[
+        {id:this.nextUniqueId(), name:"Imran",age:27,profession:"Software Engineer"},
+        {id:this.nextUniqueId(), name:"Pankaj",age:26,profession:"Software Engineer"},
+        {id:this.nextUniqueId(), name:"Vineet",age:29,profession:"Team Lead "},
+        {id:this.nextUniqueId(), name:"Haris",age:27,profession:"Java Spring Developer"},
+        {id:this.nextUniqueId(), name:"Momin",age:25,profession:"Dot Net developer"},
+      ]
+    }
+    
+    console.log(this.state);
   }
+ 
 
   getABicycle = (bicycleBrand)=>{
     this.setState({
@@ -23,6 +34,27 @@ class App extends Component {
     })
   }
   
+  deleteUser = (index)=>{
+      const usersModified = [...this.state.users];// To get the exact copy of the users
+      usersModified.splice(index,1);
+      this.setState({
+        users:usersModified
+      })
+
+  }
+
+  changeUserName = (index,event)=>{
+    // Again we need to copy our state first, and make changes in the copied state and work accordingly
+
+    const usersPresent =[...this.state.users];
+
+    usersPresent[index].name = event.target.value;
+
+    this.setState({
+      users:usersPresent
+    })
+  }
+
   render() {
     return (
       <div className="App">
@@ -33,7 +65,14 @@ class App extends Component {
           {
             this.state.users.map((user,index)=>{
               return (
-                <User age={user.age} profession={user.profession} key={user.name}>{user.name}</User>
+                   <User 
+                      userEvent={this.deleteUser.bind(this,index)} 
+                      age={user.age} profession={user.profession} 
+                      key={user.id}
+                      changeEvent={this.changeUserName.bind(this,index)}
+                  >{user.name}
+                      
+                   </User>
                 )
             })
           }
